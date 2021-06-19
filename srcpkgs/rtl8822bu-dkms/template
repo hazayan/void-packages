@@ -12,7 +12,6 @@ homepage="https://www.tp-link.com"
 distfiles="https://github.com/cilynx/rtl88x2bu/archive/${_gitrev}.tar.gz"
 checksum="1be83b831b12ab00769042a2ab98aab340c84f02bf43f97653890d58419a871d"
 dkms_modules="88x2bu ${version}"
-patch_args=-Np0
 
 case "$XBPS_TARGET_MACHINE" in
 	x86_64*) _karch="x86_64";;
