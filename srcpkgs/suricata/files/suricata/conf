@@ -1,0 +1,1 @@
+export INTERFACE="$(nmcli connection show --active | grep wifi | awk '{print $4}')"

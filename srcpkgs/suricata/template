@@ -1,6 +1,6 @@
 # Template file for 'suricata'
 pkgname=suricata
-version=4.1.8
+version=6.0.2
 revision=1
 build_style=gnu-configure
 build_helper="$(vopt_if rust rust)"
@@ -17,7 +17,7 @@ maintainer="Orphaned <orphan@voidlinux.org>"
 license="GPL-2.0-only"
 homepage="https://suricata-ids.org/"
 distfiles="https://www.openinfosecfoundation.org/download/${pkgname}-${version}.tar.gz"
-checksum=c8a83a05f57cedc0ef81d833ddcfdbbfdcdb6f459a91b1b15dc2d5671f1aecbb
+checksum=5e4647a07cb31b5d6d0049972a45375c137de908a964a44e2d6d231fa3ad4b52
 
 build_options="lua rust hiredis"
 build_options_default="hiredis"
@@ -31,6 +31,9 @@ fi
 
 system_accounts="$pkgname"
 conf_files="/etc/${pkgname}/*.* /etc/${pkgname}/rules/*"
+make_dirs="/var/lib/suricata 0644 suricata suricata
+           /var/log/suricata 0644 suricata suricata
+           /var/run/suricata 0644 suricata suricata"
 
 CFLAGS="-fcommon"
 
@@ -51,8 +54,8 @@ post_build() {
 post_install() {
 	vsv $pkgname
 	vinstall $pkgname.yaml 644 etc/$pkgname
-	vinstall classification.config 644 etc/$pkgname
-	vinstall reference.config 644 etc/$pkgname
+	vinstall etc/classification.config 644 etc/$pkgname
+	vinstall etc/reference.config 644 etc/$pkgname
 	vinstall threshold.config 644 etc/$pkgname
 	vmkdir etc/$pkgname/rules
 	vcopy rules/*.rules etc/$pkgname/rules
